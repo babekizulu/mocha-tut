@@ -3,7 +3,7 @@ const {expect} = require('chai');
 //create a describe function:
 // - tells us whether a ship is positioned at a specific location
 describe('Check for ship', () => {
-    const checkForShip = require('../game_logic/ship_methods').checkForShip;
+    const {checkForShip} = require('../game_logic/ship_methods');
 
     it('should correctly report that there is no ship at a players coordinate', () => {
         player = {
@@ -58,5 +58,42 @@ describe('Check for ship', () => {
         expect(checkForShip(player, [1, 0])).to.be.true;
         expect(checkForShip(player, [2, 3])).to.be.true;
         expect(checkForShip(player, [9, 9])).to.be.false;
+    });
+});
+
+describe('Damage ship', () => {
+    const {damageShip} = require('../game_logic/ship_methods');
+
+    it('should register damage on a given ship at a given location', () => {
+        const ship = {
+            locations: [[0, 0]],
+            damage: []
+        };
+        damageShip(ship, [0, 0]);
+        expect(ship.damage).to.not.be.empty;
+        expect(ship.damage[0]).to.deep.equal([0, 0]);
+    });
+});
+
+describe('Player Attack', () => {
+    const {checkForShip} = require('../game_logic/ship_methods');
+    const {damageShip} = require('../game_logic/ship_methods');
+    it('should allow player to play an attack move on opponent', () => {
+        player = {
+            ships: [
+                {locations: [[0, 0]]}
+            ]
+        };
+
+        ship = {
+            locations: [[0, 0]],
+            damage: [],
+            damagePoints: 0
+        };
+       expect(checkForShip(player, [0, 0])).to.be.true;
+       damageShip(ship, [0, 0], ship.damagePoints);
+       expect(ship.damage).to.not.be.empty;
+       expect(ship.damage[0]).to.deep.equal([0, 0]);
+       expect(ship.damagePoints).to.be.greaterThan(0);
     });
 });
