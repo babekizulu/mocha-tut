@@ -1,0 +1,15 @@
+{
+    "name": "testing_2",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+        "test": "mocha"
+    },
+    "author": "babekizulu",
+    "license": "ISC",
+    "devDependencies": {
+        "chai": "^4.3.6",
+        "mocha": "^10.0.0"
+    }
+}
