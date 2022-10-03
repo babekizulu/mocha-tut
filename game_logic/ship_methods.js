@@ -8,7 +8,7 @@ const checkForShip = (player, coordinates) => {
         })[0];
 
         if(shipPresent) {
-            return true;
+            return ship;
         }
     };
     return false;
@@ -19,5 +19,14 @@ const damageShip = (ship, coordinates, damagePoints) => {
     damagePoints += 1;
 };
 
+const fire = (player, coordinates) => {
+    const ship = checkForShip(player, coordinates);
+
+    if(ship) {
+        damageShip(ship, coordinates);
+    };
+};
+
 module.exports.checkForShip = checkForShip;
 module.exports.damageShip = damageShip;
+module.exports.fire = fire;

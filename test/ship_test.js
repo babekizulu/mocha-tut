@@ -24,7 +24,7 @@ describe('Check for ship', () => {
                 }
             ]
         };
-        expect(checkForShip(player, [0, 0])).to.be.true;
+        expect(checkForShip(player, [0, 0])).to.deep.equal(player.ships[0]);
     });
 
     it('should handle ships located at more than one coordinate', () => {
@@ -75,25 +75,16 @@ describe('Damage ship', () => {
     });
 });
 
-describe('Player Attack', () => {
-    const {checkForShip} = require('../game_logic/ship_methods');
-    const {damageShip} = require('../game_logic/ship_methods');
-    it('should allow player to play an attack move on opponent', () => {
-        player = {
-            ships: [
-                {locations: [[0, 0]]}
-            ]
-        };
+describe('fire', () => {
+    const {fire} = require('../game_logic/ship_methods');
 
-        ship = {
-            locations: [[0, 0]],
-            damage: [],
-            damagePoints: 0
-        };
-       expect(checkForShip(player, [0, 0])).to.be.true;
-       damageShip(ship, [0, 0], ship.damagePoints);
-       expect(ship.damage).to.not.be.empty;
-       expect(ship.damage[0]).to.deep.equal([0, 0]);
-       expect(ship.damagePoints).to.be.greaterThan(0);
+    it('should record damage on the given players ship at a given coordinate', () => {
+        const player = {
+            ships: [
+                {location: [[0, 0]], damage: []}
+            ]
+        }
+        fire(player, [0, 0]);
+        expect(player.ships[0].damage[0]).to.deep.equal([0, 0]);
     });
 });
